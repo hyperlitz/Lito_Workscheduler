@@ -1,5 +1,5 @@
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-seri;
   font-size: 16px;
 }
 
@@ -11,7 +11,7 @@ textarea {
   border-left: 1px solid black;
   padding: 10px;
 }
- 
+
 .description {
   white-space: pre-wrap;
 }
@@ -25,9 +25,12 @@ textarea {
 }
 
 .hour {
-  background-color: #ffffff;
   color: #000000;
-  border-top: 1px dashed #000000;
+  border: 1px solid #000000;
+  border-bottom-left-radius: 15px ;
+  border-top-left-radius: 15px;
+  background-color: #06aed5;
+  font-size: 20px;
 }
 
 .past {
@@ -56,4 +59,23 @@ textarea {
 .saveBtn i:hover {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
+}
+
+#heading{
+  font-family: 'Playfair Display', serif;
+  color: red;
+}
+
+#currentTime{
+  color: blue;
+  font-size: 30px;
+}
+
+#currentDay{
+ font-family: 'Playfair Display', serif;;
+ font-size: 40px;
+}
+
+#second{
+  font-family: 'Playfair Display', serif;
 }
