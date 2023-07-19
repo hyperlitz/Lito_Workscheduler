@@ -95,7 +95,7 @@ $(function () {
       }, 1000);
     });
   // Function to get the CSS class for each time block row based on the current time
-  // Please note the 3 coded color which is Past, Present and Future can only seen from 9am to 5pm, beyond this hour only one color appear on Time Blocks.
+  // Please note the 3 coded color which is Past, Present and Future can only be seen from 9am to 5pm, beyond this hour only one color appear on Time Blocks.
   function getRowClass(hour) {
     var currentHour = dayjs().format("hhA");
     var blockHour = hour.replace("AM", "").replace("PM", "");
