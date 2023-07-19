@@ -1,6 +1,3 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
 $(function () {
   // Function to update the time
   function updateTime() {
@@ -32,15 +29,15 @@ $(function () {
 
   // Create an array of time blocks from 9 AM to 5 PM
   var timeBlocks = [
-    { hour: "09AM", bgColor: "#d3d3d3" },
-    { hour: "10AM", bgColor: "#77dd77" },
-    { hour: "11AM", bgColor: "#ff6961" },
-    { hour: "12PM", bgColor: "#ffd700" },
-    { hour: "01PM", bgColor: "#87ceeb" },
-    { hour: "02PM", bgColor: "#9370db" },
-    { hour: "03PM", bgColor: "#8fbc8f" },
-    { hour: "04PM", bgColor: "#da70d6" },
-    { hour: "05PM", bgColor: "#ff8c00" },
+    { hour: "09AM" },
+    { hour: "10AM" },
+    { hour: "11AM" },
+    { hour: "12PM" },
+    { hour: "01PM" },
+    { hour: "02PM" },
+    { hour: "03PM" },
+    { hour: "04PM" },
+    { hour: "05PM" },
   ];
 
   // Loop through the time blocks array and dynamically generate the HTML for each time block
@@ -52,7 +49,7 @@ $(function () {
     var description = localStorage.getItem(timeBlockId) || "";
 
     var timeBlockHtml = `
-      <div id="${timeBlockId}" class="row time-block ${rowClass}" style="background-color: ${timeBlocks[i].bgColor}">
+      <div id="${timeBlockId}" class="row time-block ${rowClass}">
         <div class="col-2 col-md-1 hour text-center py-3">${hour}${meridiem}</div>
         <textarea class="col-8 col-md-10 description">${description}</textarea>
         <button class="btn saveBtn col-2 col-md-1" aria-label="save">
@@ -65,21 +62,57 @@ $(function () {
   }
 
   // Add a click event listener to the save buttons
-  $(".saveBtn").on("click", function () {
-    var timeBlockId = $(this).closest(".time-block").attr("id");
-    var description = $(this).siblings(".description").val();
-    localStorage.setItem(timeBlockId, description);
-  });
+    $(".saveBtn").on("click", function () {
+      var timeBlockId = $(this).closest(".time-block").attr("id");
+      var description = $(this).siblings(".description").val();
+      localStorage.setItem(timeBlockId, description);
 
+      // Show the alert
+      var $alert = $(".alert");
+      $alert.slideDown();
+
+      // Scroll to the alert
+      $("html, body").animate(
+        {
+          scrollTop: $alert.offset().top,
+        },
+        500
+      );
+
+      // Return to the specific time block
+      setTimeout(function () {
+        $("html, body").animate(
+          {
+            scrollTop: $("#" + timeBlockId).offset().top,
+          },
+          500
+        );
+      }, 10000);
+
+      // Hide the alert after 3 seconds
+      setTimeout(function () {
+        $alert.slideUp();
+      }, 1000);
+    });
   // Function to get the CSS class for each time block row based on the current time
+  // Please note the 3 coded color which is Past, Present and Future can only seen from 9am to 5pm, beyond this hour only one color appear on Time Blocks.
   function getRowClass(hour) {
-    var currentHour = dayjs().format("hh");
-    if (currentHour > hour) {
-      return "past";
-    } else if (currentHour === hour) {
-      return "present";
+    var currentHour = dayjs().format("hhA");
+    var blockHour = hour.replace("AM", "").replace("PM", "");
+
+    if (hour.includes("PM") && currentHour.includes("AM")) {
+      return "future"; // Time after current time
+    } else if (hour.includes("AM") && currentHour.includes("PM")) {
+      return "past"; // Time before current time
+    } else if (blockHour === currentHour.replace("AM", "").replace("PM", "")) {
+      return "present"; // Current time block
+    } else if (
+      (blockHour === "12" && currentHour.includes("PM")) ||
+      (Number(blockHour) < Number(currentHour.replace("AM", "").replace("PM", "")))
+    ) {
+      return "past"; // Time before current time
     } else {
-      return "future";
+      return "future"; // Time after current time
     }
   }
 });

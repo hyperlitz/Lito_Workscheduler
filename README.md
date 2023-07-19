@@ -12,8 +12,8 @@ The source code for this project is available on [GitHub](https://github.com/hyp
 
 ## Screenshots
 
-![Screenshot 1](./assets/images/day1.png)
-![Screenshot 2](./assets/images/day2.png)
+![Screenshot 1](./assets/images/img1.png)
+![Screenshot 2](./assets/images/img2.png)
 
 ## Installation
 

@@ -28,14 +28,17 @@
   <body>
     <header class="p-5 mb-4 border-5 border-bottom border-dark text-center">
       <h1 id="heading" class="display-3">Work Day Scheduler</h1>
-      <p id="second" class="lead">A simple calendar app for scheduling your work day</p>
+      <p class="lead">A simple calendar app for scheduling your work day</p>
       <p id="currentDay" class="lead"></p>
       <p id="currentTime" class="lead"></p>
     </header>
+    <!---please see alert by  adding new event that save automatically to local storage-->
+    <div class="alert alert-success mt-4" role="alert" id="alert">
+      Successfully Event Added!
+    </div>
     <div class="container-lg px-5 pb-5">
       <!-- Time blocks will be dynamically generated here -->
     </div>
-
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"

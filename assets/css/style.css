@@ -79,3 +79,9 @@ textarea {
 #second{
   font-family: 'Playfair Display', serif;
 }
+
+#alert{
+  display: none;
+  text-align: center;
+  color: red;
+}
